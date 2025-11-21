@@ -552,6 +552,14 @@ header .navbar ul li a:hover {
     margin-top: 5px;
     width: 100%;
   }
+  .skills .skill-filter-buttons {
+    gap: 0.5rem;
+    margin: 1.5rem auto;
+  }
+  .skills .skill-filter-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+  }
 }
 /* skills media queries ends*/
 /* skills section ends */
