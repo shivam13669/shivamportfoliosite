@@ -463,6 +463,36 @@ header .navbar ul li a:hover {
 .skills .heading span {
   color: rgb(255, 230, 0);
 }
+.skill-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 0.8rem 2rem;
+  border-radius: 2.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 10px rgba(255, 230, 0, 0.2);
+}
+.filter-btn.active {
+  background: rgb(255, 230, 0);
+  color: #333;
+  border-color: rgb(255, 230, 0);
+  box-shadow: 0 4px 15px rgba(255, 230, 0, 0.4);
+}
 .skills .container {
   background: rgba(0, 0, 22, 0.4);
   color: #fff;
@@ -508,6 +538,13 @@ header .navbar ul li a:hover {
 }
 /* skills media queries starts*/
 @media screen and (max-width: 600px) {
+  .skill-filters {
+    gap: 0.5rem;
+  }
+  .filter-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.2rem;
+  }
   .skills .container {
     padding: 0;
     margin: 0;
