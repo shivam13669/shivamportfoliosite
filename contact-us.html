@@ -16,39 +16,45 @@
     <style>
         .contact-section {
             background: #e5ecfb;
-            min-height: 70vh;
-            padding: 3rem 2rem;
+            min-height: 100vh;
+            padding: 2rem 9%;
         }
         .contact-wrapper {
-            max-width: 1000px;
+            max-width: 1050px;
             margin: 0 auto;
+            width: 100%;
         }
         .contact-header {
             text-align: center;
             margin-bottom: 3rem;
+            padding-top: 2rem;
         }
         .contact-header h1 {
             font-size: 3.5rem;
             color: #020133;
             margin-bottom: 1rem;
+            font-weight: 800;
         }
         .contact-header p {
             font-size: 1.5rem;
             color: #333;
         }
         .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
             background: #fff;
-            padding: 2rem;
-            border-radius: 1rem;
+            border-radius: 1.5rem;
+            margin: 2rem 0;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2.5rem 2rem;
         }
         .contact-info-box {
             display: flex;
             flex-direction: column;
             gap: 2rem;
+            max-width: 40%;
+            margin-left: 2rem;
         }
         .info-item {
             display: flex;
@@ -59,11 +65,13 @@
             font-size: 2rem;
             color: #011aff;
             margin-top: 0.3rem;
+            flex-shrink: 0;
         }
         .info-content h3 {
             font-size: 1.5rem;
             color: #020133;
             margin-bottom: 0.5rem;
+            font-weight: 600;
         }
         .info-content p {
             font-size: 1.4rem;
@@ -81,61 +89,146 @@
         .form-container {
             display: flex;
             flex-direction: column;
+            width: 45%;
+            margin-right: 3.5rem;
         }
         .form-container h3 {
             font-size: 1.8rem;
             color: #020133;
             margin-bottom: 1.5rem;
+            font-weight: 600;
         }
-        .form-group {
+        .form-group-wrapper {
             display: flex;
             flex-direction: column;
-            margin-bottom: 1.5rem;
+            justify-content: center;
         }
-        .form-group label {
-            font-size: 1.4rem;
-            color: #020133;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+        .form-field {
+            height: 50px;
+            display: flex;
+            position: relative;
+            margin: 1rem;
+            width: 100%;
         }
-        .form-group input,
-        .form-group textarea {
-            padding: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 0.5rem;
-            font-size: 1.4rem;
-            font-family: "Poppins", sans-serif;
-            transition: border-color 0.3s;
+        .form-field i {
+            position: absolute;
+            top: 50%;
+            left: 18px;
+            color: rgb(51, 51, 51);
+            font-size: 17px;
+            pointer-events: none;
+            transform: translateY(-50%);
         }
-        .form-group input:focus,
-        .form-group textarea:focus {
+        .form-field input,
+        .form-field textarea,
+        .message-area textarea {
+            width: 100%;
+            height: 100%;
             outline: none;
-            border-color: #011aff;
+            padding: 0 16px 0 48px;
+            font-size: 16px;
+            font-family: "Poppins", sans-serif;
+            border-radius: 5px;
+            border: 1px solid rgb(51, 51, 51);
+            background: #e5ecfb;
         }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
+        .form-field input::placeholder,
+        .form-field textarea::placeholder,
+        .message-area textarea::placeholder {
+            color: rgb(51, 51, 51);
+        }
+        .form-field input:focus,
+        .form-field textarea:focus,
+        .message-area textarea:focus {
+            padding-left: 47px;
+            border: 2px solid rgb(115, 3, 167);
+        }
+        .form-field input:focus ~ i,
+        .form-field textarea:focus ~ i,
+        .message-area textarea:focus ~ i {
+            color: rgb(115, 3, 167);
+        }
+        .message-area {
+            position: relative;
+            margin: 1rem;
+            width: 100%;
+        }
+        .message-area i {
+            position: absolute;
+            top: 25px;
+            left: 15px;
+            color: rgb(51, 51, 51);
+            font-size: 20px;
+            pointer-events: none;
+        }
+        .message-area textarea {
+            min-height: 130px;
+            max-height: 230px;
+            max-width: 100%;
+            min-width: 100%;
+            padding: 12px 20px 0 48px;
+        }
+        .message-area textarea::-webkit-scrollbar {
+            width: 0px;
+        }
+        .form-submit-area {
+            display: flex;
+            float: right;
+            flex-direction: row-reverse;
+            margin: 1rem;
         }
         .form-submit {
-            background: #2506ad;
             color: #fff;
-            padding: 1.2rem;
             border: none;
-            border-radius: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: 600;
+            outline: none;
+            font-size: 1.8rem;
             cursor: pointer;
-            transition: 0.3s;
+            border-radius: 5px;
+            padding: 13px 25px;
+            background: #2506ad;
+            box-shadow: 0px 5px 10px rgba(48, 68, 247, 0.6);
+            transition: 0.3s ease;
+            font-family: "Nunito", sans-serif;
+            font-weight: 600;
         }
         .form-submit:hover {
             background: #1a047e;
         }
-        @media (max-width: 768px) {
-            .contact-container {
-                grid-template-columns: 1fr;
+        .form-submit i {
+            position: relative;
+            top: 6px;
+            left: 2px;
+            font-size: 1.5rem;
+            transition: 0.3s;
+            color: #fff;
+        }
+        .form-submit:hover i {
+            left: 8px;
+        }
+        @media (max-width: 900px) {
+            .contact-section {
+                min-height: 70vh;
+                padding: 2rem 2rem;
             }
+            .contact-container {
+                flex-direction: column;
+                padding: 18px 12px;
+            }
+            .contact-info-box {
+                max-width: 100%;
+                margin: 0 0 2rem 0;
+            }
+            .form-container {
+                width: 100%;
+                margin: 0;
+            }
+        }
+        @media (max-width: 450px) {
             .contact-header h1 {
                 font-size: 2.5rem;
+            }
+            .contact-section {
+                padding: 2rem;
             }
         }
     </style>
