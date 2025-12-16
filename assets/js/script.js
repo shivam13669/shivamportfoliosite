@@ -231,7 +231,7 @@ function showCourses(courses) {
 
     courses.slice(0, 3).forEach(course => {
         courseHTML += `
-        <div class="course-card">
+        <div class="course-card" onclick="window.location.href='/courses'" style="cursor: pointer;">
             <img src="${course.image}" alt="${course.name}" class="course-image" draggable="false">
             <div class="course-content">
                 <div class="course-header">
