@@ -25,7 +25,6 @@ $(document).ready(function () {
   });
 
   loadCourses();
-  setupModal();
 });
 
 function loadCourses() {
@@ -41,7 +40,7 @@ function loadCourses() {
     })
     .catch(error => {
       console.error('Error fetching courses:', error);
-      document.querySelector('.courses-container').innerHTML = '<p>Error loading courses. Please try again later.</p>';
+      document.querySelector('.courses-container').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">Error loading courses. Please try again later.</p>';
     });
 }
 
@@ -53,7 +52,7 @@ function displayCourses(courses) {
     const stars = '★'.repeat(Math.floor(course.rating)) + '☆'.repeat(5 - Math.floor(course.rating));
 
     html += `
-      <div class="course-card" onclick="openCourseDetail(${course.id})">
+      <div class="course-card" onclick="navigateToCourseDetail(${course.id})">
         <img src="${course.image}" alt="${course.name}" class="course-card-image">
         <div class="course-card-content">
           <h3>${course.name}</h3>
@@ -73,7 +72,7 @@ function displayCourses(courses) {
             </span>
           </div>
         </div>
-        <button class="course-card-btn" onclick="event.stopPropagation(); openCourseDetail(${course.id})">View Details</button>
+        <button class="course-card-btn" onclick="event.stopPropagation(); navigateToCourseDetail(${course.id})">View Details</button>
       </div>
     `;
   });
@@ -81,104 +80,8 @@ function displayCourses(courses) {
   container.innerHTML = html;
 }
 
-function openCourseDetail(courseId) {
-  fetch('/courses/courses.json')
-    .then(response => response.json())
-    .then(courses => {
-      const course = courses.find(c => c.id === courseId);
-      if (course) {
-        displayCourseDetail(course);
-        document.getElementById('courseDetailModal').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-      }
-    })
-    .catch(error => console.error('Error loading course details:', error));
-}
-
-function displayCourseDetail(course) {
-  const stars = '★'.repeat(Math.floor(course.rating)) + '☆'.repeat(5 - Math.floor(course.rating));
-
-  document.getElementById('modalCourseImage').src = course.image;
-  document.getElementById('modalCourseName').textContent = course.name;
-  document.getElementById('modalInstructor').textContent = course.instructor;
-  document.getElementById('modalRating').textContent = stars;
-  document.getElementById('modalReviews').textContent = `${course.reviews} reviews`;
-  document.getElementById('modalPrice').textContent = course.price;
-  document.getElementById('modalDuration').textContent = course.duration;
-  document.getElementById('modalDescription').textContent = course.description;
-
-  // Highlights
-  let highlightsHtml = '';
-  course.highlights.forEach(highlight => {
-    highlightsHtml += `<li>${highlight}</li>`;
-  });
-  document.getElementById('modalHighlights').innerHTML = highlightsHtml;
-
-  // Syllabus
-  let syllabusHtml = '';
-  course.syllabus.forEach(section => {
-    let topicsHtml = '';
-    section.topics.forEach(topic => {
-      topicsHtml += `<li>${topic}</li>`;
-    });
-    syllabusHtml += `
-      <div class="syllabus-section">
-        <div class="syllabus-section-title">${section.section}</div>
-        <ul class="syllabus-topics">${topicsHtml}</ul>
-      </div>
-    `;
-  });
-  document.getElementById('modalSyllabus').innerHTML = syllabusHtml;
-
-  // Requirements
-  let requirementsHtml = '';
-  course.requirements.forEach(requirement => {
-    requirementsHtml += `<li>${requirement}</li>`;
-  });
-  document.getElementById('modalRequirements').innerHTML = requirementsHtml;
-
-  // Store course ID for buy button
-  document.getElementById('buyNowBtn').dataset.courseId = course.id;
-  document.getElementById('buyNowBtn').dataset.courseName = course.name;
-  document.getElementById('buyNowBtn').dataset.coursePrice = course.price;
-}
-
-function setupModal() {
-  const modal = document.getElementById('courseDetailModal');
-  const closeBtn = document.querySelector('.modal-close');
-
-  closeBtn.onclick = function () {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-  };
-
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-  };
-
-  // Buy Now Button
-  document.getElementById('buyNowBtn').onclick = function () {
-    const courseName = this.dataset.courseName;
-    const coursePrice = this.dataset.coursePrice;
-    handleBuyNow(courseName, coursePrice);
-  };
-
-  // Preview Button
-  document.querySelector('.btn-preview').onclick = function () {
-    alert('Preview feature coming soon!');
-  };
-}
-
-function handleBuyNow(courseName, coursePrice) {
-  // Show confirmation message
-  alert(`Thank you for your interest in "${courseName}"!\n\nPrice: ${coursePrice}\n\nPayment gateway integration coming soon. For now, you can contact us at shivam19e@gmail.com to enroll.`);
-
-  // Optional: Close the modal after purchase intent
-  document.getElementById('courseDetailModal').style.display = 'none';
-  document.body.style.overflow = 'auto';
+function navigateToCourseDetail(courseId) {
+  window.location.href = `/courses/coursedetail.html?id=${courseId}`;
 }
 
 // Disable developer mode
