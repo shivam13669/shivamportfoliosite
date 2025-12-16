@@ -16,12 +16,17 @@ $(document).ready(function () {
     }
   });
 
-  // smooth scrolling
+  // smooth scrolling - only for links that exist on this page
   $('a[href*="#"]').on('click', function (e) {
-    e.preventDefault();
-    $('html, body').animate({
-      scrollTop: $($(this).attr('href')).offset().top,
-    }, 500, 'linear')
+    const href = $(this).attr('href');
+    const targetElement = $(href);
+
+    if (targetElement.length) {
+      e.preventDefault();
+      $('html, body').animate({
+        scrollTop: targetElement.offset().top,
+      }, 500, 'linear');
+    }
   });
 
   loadCourses();
