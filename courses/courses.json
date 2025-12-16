@@ -1,0 +1,272 @@
+[
+  {
+    "id": 1,
+    "name": "Full Stack Development with AI (Hinglish)",
+    "image": "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=400&h=300&fit=crop",
+    "instructor": "By Expert Instructor",
+    "price": "₹4,999",
+    "duration": "12 Weeks",
+    "rating": 4.8,
+    "reviews": 1250,
+    "shortDesc": "Master full-stack web development with AI integration. Learn React, Node.js, MongoDB, and AI APIs.",
+    "description": "Comprehensive full-stack development course covering modern web technologies with AI integration. Build real-world projects and learn industry best practices.",
+    "highlights": [
+      "Learn React.js for frontend development",
+      "Master Node.js and Express backend",
+      "Database design with MongoDB",
+      "AI and Machine Learning integration",
+      "RESTful API development",
+      "Authentication and authorization",
+      "Deployment and DevOps basics"
+    ],
+    "syllabus": [
+      {
+        "section": "Module 1: Web Development Fundamentals",
+        "topics": ["HTML5, CSS3 Advanced", "JavaScript ES6+", "Responsive Design"]
+      },
+      {
+        "section": "Module 2: Frontend with React",
+        "topics": ["React Components", "Hooks and State Management", "Redux", "React Router"]
+      },
+      {
+        "section": "Module 3: Backend Development",
+        "topics": ["Node.js Basics", "Express Framework", "REST APIs", "Middleware"]
+      },
+      {
+        "section": "Module 4: Database Design",
+        "topics": ["MongoDB Basics", "Data Modeling", "Aggregation", "Indexing"]
+      },
+      {
+        "section": "Module 5: AI Integration",
+        "topics": ["OpenAI API", "ChatGPT Integration", "LLM Applications", "Prompt Engineering"]
+      }
+    ],
+    "requirements": [
+      "Basic knowledge of HTML and CSS",
+      "Familiarity with JavaScript",
+      "A computer with internet connection",
+      "Code editor (VS Code recommended)"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "React Advanced Mastery",
+    "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
+    "instructor": "By React Expert",
+    "price": "₹2,999",
+    "duration": "8 Weeks",
+    "rating": 4.9,
+    "reviews": 980,
+    "shortDesc": "Master advanced React concepts including hooks, context, performance optimization, and state management.",
+    "description": "Advanced React course for developers who want to level up their skills. Cover hooks, context API, performance optimization, and advanced patterns.",
+    "highlights": [
+      "React Hooks in depth",
+      "Context API and useReducer",
+      "Performance optimization techniques",
+      "Code splitting and lazy loading",
+      "Custom hooks development",
+      "Advanced debugging",
+      "Testing React applications"
+    ],
+    "syllabus": [
+      {
+        "section": "Module 1: React Fundamentals Review",
+        "topics": ["Components", "Props", "State", "Lifecycle"]
+      },
+      {
+        "section": "Module 2: Hooks Deep Dive",
+        "topics": ["useState, useEffect", "useContext, useReducer", "Custom Hooks", "Rules of Hooks"]
+      },
+      {
+        "section": "Module 3: State Management",
+        "topics": ["Context API", "Redux Basics", "Redux Toolkit", "Zustand"]
+      },
+      {
+        "section": "Module 4: Performance & Optimization",
+        "topics": ["React.memo, useMemo", "useCallback", "Code Splitting", "Lazy Loading"]
+      }
+    ],
+    "requirements": [
+      "Solid React basics knowledge",
+      "JavaScript fundamentals",
+      "Node.js and npm installed",
+      "Willingness to build projects"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Node.js Backend Development",
+    "image": "https://images.unsplash.com/photo-1516534775068-bb57e39c1a29?w=400&h=300&fit=crop",
+    "instructor": "By Backend Specialist",
+    "price": "₹3,499",
+    "duration": "10 Weeks",
+    "rating": 4.7,
+    "reviews": 750,
+    "shortDesc": "Build scalable server-side applications with Node.js, Express, and database integration.",
+    "description": "Complete Node.js backend development course covering Express, databases, authentication, and deployment strategies.",
+    "highlights": [
+      "Express.js framework mastery",
+      "Middleware and routing",
+      "Database integration",
+      "JWT authentication",
+      "Error handling and logging",
+      "API security best practices",
+      "Deployment on cloud platforms"
+    ],
+    "syllabus": [
+      {
+        "section": "Module 1: Node.js Fundamentals",
+        "topics": ["Event Loop", "Async/Await", "Promises", "File System"]
+      },
+      {
+        "section": "Module 2: Express Framework",
+        "topics": ["Routing", "Middleware", "Error Handling", "Templating"]
+      },
+      {
+        "section": "Module 3: Database Integration",
+        "topics": ["MongoDB ODM", "Mongoose", "Data Validation", "Relationships"]
+      },
+      {
+        "section": "Module 4: Authentication & Security",
+        "topics": ["JWT Tokens", "Password Hashing", "CORS", "Rate Limiting"]
+      }
+    ],
+    "requirements": [
+      "JavaScript knowledge",
+      "Node.js installed",
+      "Understanding of HTTP protocols",
+      "Basic database concepts"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "MongoDB Database Design",
+    "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400&h=300&fit=crop",
+    "instructor": "By Database Expert",
+    "price": "₹2,499",
+    "duration": "7 Weeks",
+    "rating": 4.6,
+    "reviews": 620,
+    "shortDesc": "Master MongoDB design patterns, optimization, and best practices for building scalable applications.",
+    "description": "In-depth MongoDB course covering document design, indexing, aggregation pipeline, and performance optimization.",
+    "highlights": [
+      "Document design patterns",
+      "Schema validation",
+      "Indexing strategies",
+      "Aggregation pipeline",
+      "Transactions and ACID",
+      "Backup and recovery",
+      "Sharding and replication"
+    ],
+    "syllabus": [
+      {
+        "section": "Module 1: MongoDB Basics",
+        "topics": ["CRUD Operations", "Document Structure", "Collections", "Databases"]
+      },
+      {
+        "section": "Module 2: Data Modeling",
+        "topics": ["Embedding vs Referencing", "Design Patterns", "One-to-Many Relationships"]
+      },
+      {
+        "section": "Module 3: Performance Optimization",
+        "topics": ["Index Types", "Query Optimization", "Explain Plans", "Monitoring"]
+      },
+      {
+        "section": "Module 4: Advanced Features",
+        "topics": ["Aggregation Pipeline", "Transactions", "Bulk Operations"]
+      }
+    ],
+    "requirements": [
+      "Basic database knowledge",
+      "JavaScript fundamentals",
+      "MongoDB installed or Atlas account",
+      "Command line basics"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Web Development with Tailwind CSS",
+    "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
+    "instructor": "By CSS Specialist",
+    "price": "₹1,999",
+    "duration": "6 Weeks",
+    "rating": 4.8,
+    "reviews": 890,
+    "shortDesc": "Create stunning, responsive websites with Tailwind CSS. Learn utility-first CSS and modern design principles.",
+    "description": "Master Tailwind CSS utility framework to build beautiful, responsive web designs efficiently.",
+    "highlights": [
+      "Utility-first CSS approach",
+      "Responsive design with Tailwind",
+      "Component composition",
+      "Custom configuration",
+      "Animations and effects",
+      "Dark mode implementation",
+      "Production optimization"
+    ],
+    "syllabus": [
+      {
+        "section": "Module 1: Tailwind Fundamentals",
+        "topics": ["Utility Classes", "Responsive Design", "Flexbox and Grid", "Spacing"]
+      },
+      {
+        "section": "Module 2: Components & Patterns",
+        "topics": ["Building Reusable Components", "Dark Mode", "Custom Components"]
+      },
+      {
+        "section": "Module 3: Advanced Techniques",
+        "topics": ["JIT Compiler", "Plugin System", "Performance Optimization"]
+      }
+    ],
+    "requirements": [
+      "HTML and CSS knowledge",
+      "Node.js and npm",
+      "Code editor",
+      "Modern browser"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "MERN Stack Complete Course",
+    "image": "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=400&h=300&fit=crop",
+    "instructor": "By MERN Specialist",
+    "price": "₹5,999",
+    "duration": "16 Weeks",
+    "rating": 4.9,
+    "reviews": 2100,
+    "shortDesc": "Complete MERN stack (MongoDB, Express, React, Node.js) course with real-world projects.",
+    "description": "Comprehensive MERN stack course covering full-stack development from database to frontend deployment.",
+    "highlights": [
+      "MongoDB database design",
+      "Express.js API development",
+      "React frontend development",
+      "State management with Redux",
+      "Authentication implementation",
+      "Payment gateway integration",
+      "Full deployment workflow"
+    ],
+    "syllabus": [
+      {
+        "section": "Module 1: MongoDB & Express",
+        "topics": ["Database Design", "RESTful APIs", "Middleware", "Error Handling"]
+      },
+      {
+        "section": "Module 2: React Frontend",
+        "topics": ["Components", "Routing", "State Management", "API Integration"]
+      },
+      {
+        "section": "Module 3: Advanced Topics",
+        "topics": ["Authentication", "File Upload", "Payments", "Email Services"]
+      },
+      {
+        "section": "Module 4: Real Projects",
+        "topics": ["E-commerce Platform", "Social Media App", "SaaS Application"]
+      }
+    ],
+    "requirements": [
+      "JavaScript fundamentals",
+      "Basic web development knowledge",
+      "Node.js and npm",
+      "Patience for 16-week journey"
+    ]
+  }
+]

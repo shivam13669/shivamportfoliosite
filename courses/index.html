@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/courses/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link id='favicon' rel="shortcut icon" href="https://cdn.builder.io/api/v1/image/assets%2Fb5e2cf9ea44e436484882433f20a28b0%2F5df928bff0ab45f8a3454df4d5377266?format=webp&width=800" type="image/x-png">
+    <title>Courses | Portfolio Shivam</title>
+</head>
+<body>
+
+<!-- navbar starts -->
+<header>
+        <a href="/" class="logo"><i class="fab fa-node-js"></i> Shivam</a>
+
+        <div id="menu" class="fas fa-bars"></div>
+        <nav class="navbar">
+            <ul>
+            <li><a href="/#home">Home</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#skills">Skills</a></li>
+            <li><a href="/#education">Education</a></li>
+            <li><a href="/#work">Work</a></li>
+            <li><a href="/#experience">Experience</a></li>
+            <li><a class="active" href="/courses">Courses</a></li>
+            <li><a href="/#contact">Contact</a></li>
+            </ul>
+        </nav>
+</header>
+<!-- navbar ends -->
+
+<!-- courses section starts -->
+<section class="courses" id="courses">
+  <h2 class="heading"><i class="fas fa-book"></i> Web Development <span>Courses</span></h2>
+
+  <div class="courses-container" id="coursesContainer">
+    <!-- Courses will be loaded here by JavaScript -->
+  </div>
+
+  <div class="back-btn">
+    <a href="/#work" class="btn">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Home</span>
+    </a>
+  </div>
+</section>
+<!-- courses section ends -->
+
+<!-- Course Detail Modal -->
+<div id="courseDetailModal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close">&times;</span>
+    <div class="modal-body">
+      <img id="modalCourseImage" src="" alt="Course" class="modal-image">
+      <div class="modal-info">
+        <h2 id="modalCourseName"></h2>
+        <p class="instructor" id="modalInstructor"></p>
+        
+        <div class="course-rating">
+          <span id="modalRating" class="rating-stars"></span>
+          <span id="modalReviews" class="reviews-count"></span>
+        </div>
+
+        <div class="course-price-section">
+          <span class="course-price" id="modalPrice"></span>
+          <span class="course-duration" id="modalDuration"></span>
+        </div>
+
+        <div class="course-description-section">
+          <h3>Course Description</h3>
+          <p id="modalDescription"></p>
+        </div>
+
+        <div class="course-highlights-section">
+          <h3>What You'll Learn</h3>
+          <ul id="modalHighlights" class="highlights-list"></ul>
+        </div>
+
+        <div class="course-syllabus-section">
+          <h3>Course Syllabus</h3>
+          <div id="modalSyllabus" class="syllabus-content"></div>
+        </div>
+
+        <div class="course-requirements-section">
+          <h3>Requirements</h3>
+          <ul id="modalRequirements" class="requirements-list"></ul>
+        </div>
+
+        <div class="modal-actions">
+          <button id="buyNowBtn" class="btn-buy-now">Buy Now</button>
+          <button class="btn-preview">Preview Course</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- scroll top btn -->
+<a href="#courses" class="fas fa-angle-up" id="scroll-top"></a>
+<!-- scroll back to top -->
+
+<!-- ==== ALL MAJOR JAVASCRIPT CDNS STARTS ==== -->
+<!-- jquery cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- scroll reveal anim -->
+<script src="https://unpkg.com/scrollreveal"></script>
+
+<!-- ==== ALL MAJOR JAVASCRIPT CDNS ENDS ==== -->
+
+<script src="/courses/script.js"></script>
+
+</body>
+</html>
