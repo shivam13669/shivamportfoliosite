@@ -22,9 +22,11 @@ $(document).ready(function () {
             let top = $(window).scrollTop();
             let id = $(this).attr('id');
 
-            if (top > offset && top < offset + height) {
+            if (id && top > offset && top < offset + height) {
                 $('.navbar ul li a').removeClass('active');
-                $('.navbar').find(`[href="#${id}"]`).addClass('active');
+                // Use attribute selector with proper escaping for jQuery
+                const escapedId = id.replace(/[!"#$%&'()*+,.\/:;?@[\\\]^`{|}~]/g, '\\$&');
+                $('.navbar').find(`a[href="#${escapedId}"], a[href="/#${escapedId}"]`).addClass('active');
             }
         });
     });
