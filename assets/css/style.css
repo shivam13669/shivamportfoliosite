@@ -556,112 +556,121 @@ header .navbar ul li a:hover {
 /* skills media queries ends*/
 /* skills section ends */
 
-/* education section starts */
-.education {
+/* courses section starts */
+.courses {
   background: #e5ecfb;
   min-height: 80vh;
 }
-.education .qoute {
-  font-size: 1.5rem;
-  text-align: center;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  margin-top: 0.5rem;
+.courses h2 {
+  color: rgb(32, 32, 32);
 }
-.education .box-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.courses-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 3rem 0;
+  padding: 2rem;
 }
-.education .box-container .box {
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-  border-radius: 0.5rem;
-  box-shadow: 0.2rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
-  text-align: center;
-  position: relative;
-  margin-top: 2rem;
+.course-card {
+  background: #fff;
+  border-radius: 0.8rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: 0.3s;
-  background: rgb(252, 252, 252);
-}
-.education .box-container .box:hover {
-  transform: scale(1.03);
-  box-shadow: 1rem 0.5rem 1.2rem rgba(0, 0, 0, 0.3);
-}
-.education .box-container .box .image {
-  flex: 1 1 20rem;
-  width: 100%;
-}
-.education .box-container .box img {
-  object-fit: cover;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.education .box-container .box .content {
-  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  flex-wrap: wrap;
-  flex: 1 1 70rem;
 }
-.education .box-container .box .content h3 {
-  font-size: 2.5rem;
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.course-card .course-image {
+  width: 100%;
+  height: 20rem;
+  object-fit: cover;
+}
+.course-card .course-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.course-card .course-header {
+  flex: 1;
+}
+.course-card .course-title {
+  font-size: 1.8rem;
   color: #012970;
-  padding: 0.5rem 0;
   font-weight: 600;
-  text-align: left;
-  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
 }
-.education .box-container .box .content p {
-  font-size: 1.5rem;
-  margin-left: 1rem;
-  text-align: left;
+.course-card .course-instructor {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 0.8rem;
 }
-.education h4 {
-  font-size: 2rem;
-  color: rgb(34, 109, 0);
-  text-align: left;
-  margin: 1rem;
+.course-card .course-desc {
+  font-size: 1.4rem;
+  color: #555;
+  margin-bottom: 1rem;
   font-family: "Nunito", sans-serif;
-  font-weight: 700;
+  line-height: 1.4;
+}
+.course-card .course-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  font-size: 1.2rem;
+  color: #666;
+}
+.course-card .course-price {
+  font-size: 1.6rem;
+  color: #011aff;
+  font-weight: 600;
+}
+.course-card .course-duration {
+  font-size: 1.2rem;
+  color: #666;
+}
+.course-card .course-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+.course-card .course-rating .stars {
+  color: #ffc107;
+}
+.course-card .course-rating .reviews {
+  color: #999;
 }
 
-/* education media queries starts*/
-@media screen and (max-width: 600px) {
-  .education .box-container .box {
-    flex-direction: column;
-    width: 100%;
-  }
-  .education .box-container .box .image {
-    width: 100%;
-    height: 25rem;
-  }
-  .education .box-container .box img {
-    width: 100%;
-  }
-  .education .box-container .box .content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+/* courses media queries starts*/
+@media screen and (max-width: 1024px) {
+  .courses-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
     padding: 1rem;
-    flex-wrap: wrap;
-    flex: 0;
-  }
-  .education .btns {
-    margin-top: 2rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    flex-wrap: wrap;
   }
 }
-/* education media queries ends*/
-/* education section ends */
+@media screen and (max-width: 600px) {
+  .courses-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
+    margin: 2rem 0;
+  }
+  .course-card .course-image {
+    height: 18rem;
+  }
+}
+/* courses media queries ends*/
+/* courses section ends */
 
 /* work section starts */
 .work {
