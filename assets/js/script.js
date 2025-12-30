@@ -168,12 +168,6 @@ function showProjects(projects) {
 
 }
 
-fetchData().then(data => {
-    allSkills = data;
-    showSkills(data);
-    setupSkillFilters();
-});
-
 fetchData("projects").then(data => {
     showProjects(data);
 });
