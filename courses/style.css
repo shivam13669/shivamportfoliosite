@@ -494,6 +494,20 @@ header .navbar ul li a:hover {
     font-size: 1.2rem;
   }
 
+  .course-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .course-card-btn {
+    width: 100%;
+    margin-bottom: 0.8rem;
+  }
+
+  .course-card-price-section {
+    text-align: left;
+  }
+
   .back-btn .btn {
     padding: 1.2rem 2rem;
   }
