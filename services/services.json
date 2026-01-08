@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "One-on-One Tutoring",
+    "name": "One on one Personalized Mentorship",
     "category": "Personalized Learning",
     "description": "Customized one-on-one mentoring tailored to your learning pace. Get direct guidance on any topic with flexible scheduling and focused problem-solving.",
     "icon": "fas fa-chalkboard-user",
@@ -16,7 +16,7 @@
   },
   {
     "id": 2,
-    "name": "Full Stack Development",
+    "name": "Full Stack Development Training",
     "category": "Technical Training",
     "description": "Master complete web development from frontend to backend. Learn modern frameworks, databases, and deployment with real-world projects.",
     "icon": "fas fa-laptop-code",
@@ -31,39 +31,9 @@
   },
   {
     "id": 3,
-    "name": "React.js Advanced",
-    "category": "Frontend Development",
-    "description": "Deep dive into React with advanced concepts. Master hooks, state management, performance optimization, and build production-ready applications.",
-    "icon": "fas fa-code",
-    "duration": "8 Weeks",
-    "level": "Intermediate",
-    "highlights": [
-      "React hooks & advanced patterns",
-      "State management (Redux, Zustand)",
-      "Performance optimization",
-      "Testing & debugging strategies"
-    ]
-  },
-  {
-    "id": 4,
-    "name": "Node.js Backend",
-    "category": "Backend Development",
-    "description": "Build scalable backend systems using Node.js and Express. Learn API design, authentication, databases, and server deployment.",
-    "icon": "fas fa-server",
-    "duration": "10 Weeks",
-    "level": "Intermediate",
-    "highlights": [
-      "RESTful API development",
-      "Authentication & security",
-      "MongoDB & database design",
-      "Error handling & logging"
-    ]
-  },
-  {
-    "id": 5,
-    "name": "AI Integration",
+    "name": "AI Integration & Modern Web Technologies",
     "category": "Advanced Technologies",
-    "description": "Integrate artificial intelligence into your applications. Learn OpenAI APIs, chatbots, and modern AI-powered features.",
+    "description": "Integrate artificial intelligence into your applications and explore cutting-edge web technologies. Learn OpenAI APIs, chatbots, and modern AI-powered features.",
     "icon": "fas fa-brain",
     "duration": "6 Weeks",
     "level": "Advanced",
@@ -71,29 +41,74 @@
       "OpenAI & LLM APIs",
       "AI chatbot development",
       "Prompt engineering",
-      "AI-powered app features"
+      "Modern web frameworks"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Video-Based Courses",
+    "category": "Self-Paced Learning",
+    "description": "Comprehensive video tutorials covering all major web development topics. Learn at your own pace with structured modules and practical examples.",
+    "icon": "fas fa-video",
+    "duration": "Self-Paced",
+    "level": "All Levels",
+    "highlights": [
+      "Structured video modules",
+      "Step-by-step tutorials",
+      "Code examples & resources",
+      "Lifetime access to content"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Live Classes & Interactive Sessions",
+    "category": "Interactive Learning",
+    "description": "Join interactive live classes with real-time Q&A and hands-on coding sessions. Learn directly from experts and interact with peer learners.",
+    "icon": "fas fa-video",
+    "duration": "Weekly Sessions",
+    "level": "All Levels",
+    "highlights": [
+      "Real-time interaction with instructors",
+      "Live coding demonstrations",
+      "Q&A sessions & doubt resolution",
+      "Recorded sessions for playback"
     ]
   },
   {
     "id": 6,
-    "name": "Career Mentoring",
-    "category": "Professional Growth",
-    "description": "Accelerate your tech career with expert guidance. Resume optimization, interview prep, portfolio building, and career strategy.",
-    "icon": "fas fa-briefcase",
-    "duration": "8 Weeks",
+    "name": "Test Series & Skill Assessments",
+    "category": "Evaluation & Practice",
+    "description": "Practice with comprehensive test series and skill assessments. Evaluate your progress and identify areas for improvement with detailed feedback.",
+    "icon": "fas fa-clipboard-list",
+    "duration": "Ongoing",
     "level": "All Levels",
     "highlights": [
-      "Resume & LinkedIn optimization",
-      "Interview preparation",
-      "Portfolio building",
-      "Job search strategy"
+      "Multiple mock tests",
+      "Difficulty-based practice",
+      "Detailed performance analysis",
+      "Skill level certification"
     ]
   },
   {
     "id": 7,
-    "name": "Project-Based Learning",
+    "name": "eBooks, Notes & PDFs",
+    "category": "Learning Resources",
+    "description": "Access curated eBooks, comprehensive notes, and downloadable PDFs. Study materials covering theory, best practices, and quick reference guides.",
+    "icon": "fas fa-book",
+    "duration": "On-Demand",
+    "level": "All Levels",
+    "highlights": [
+      "Comprehensive study guides",
+      "Quick reference materials",
+      "Downloadable resources",
+      "Regular updates & new content"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Real-World Projects & Portfolio Building",
     "category": "Practical Experience",
-    "description": "Work on real-world projects from concept to deployment. Gain hands-on experience and build a professional portfolio.",
+    "description": "Work on real-world projects from concept to deployment. Gain hands-on experience and build a professional portfolio that showcases your skills.",
     "icon": "fas fa-rocket",
     "duration": "4-6 Weeks",
     "level": "Intermediate",
@@ -105,78 +120,33 @@
     ]
   },
   {
-    "id": 8,
-    "name": "UI/UX Design Principles",
-    "category": "Design Skills",
-    "description": "Learn modern web design principles. Create beautiful, responsive interfaces with focus on user experience and accessibility.",
-    "icon": "fas fa-palette",
-    "duration": "6 Weeks",
-    "level": "Beginner",
-    "highlights": [
-      "Responsive design techniques",
-      "CSS mastery",
-      "UX principles",
-      "Design tools & workflows"
-    ]
-  },
-  {
     "id": 9,
-    "name": "Database Design",
-    "category": "Data Management",
-    "description": "Master database design and management. Learn SQL, NoSQL, optimization, and data security best practices.",
-    "icon": "fas fa-database",
+    "name": "Career Guidance & Interview Preparation",
+    "category": "Professional Growth",
+    "description": "Accelerate your tech career with expert guidance. Resume optimization, interview prep, portfolio building, and comprehensive career strategy.",
+    "icon": "fas fa-briefcase",
     "duration": "8 Weeks",
-    "level": "Intermediate",
+    "level": "All Levels",
     "highlights": [
-      "SQL query optimization",
-      "NoSQL database design",
-      "Data modeling",
-      "Performance tuning"
+      "Resume & LinkedIn optimization",
+      "Interview preparation",
+      "Portfolio building",
+      "Job search strategy"
     ]
   },
   {
     "id": 10,
-    "name": "Git & Version Control",
-    "category": "Development Tools",
-    "description": "Master Git and collaborative workflows. Learn branching strategies, GitHub, and professional team development practices.",
-    "icon": "fas fa-code-branch",
-    "duration": "3 Weeks",
-    "level": "Beginner",
+    "name": "Project Mentorship",
+    "category": "Professional Guidance",
+    "description": "Get personalized mentorship for your projects. Expert guidance from concept to completion with code reviews, best practices, and real-time feedback.",
+    "icon": "fas fa-handshake",
+    "duration": "Flexible",
+    "level": "All Levels",
     "highlights": [
-      "Git fundamentals",
-      "GitHub collaboration",
-      "Branching strategies",
-      "Team workflows"
-    ]
-  },
-  {
-    "id": 11,
-    "name": "Performance & SEO",
-    "category": "Optimization",
-    "description": "Optimize web applications for speed and search visibility. Learn performance metrics, SEO strategies, and user experience optimization.",
-    "icon": "fas fa-chart-line",
-    "duration": "5 Weeks",
-    "level": "Advanced",
-    "highlights": [
-      "Web performance metrics",
-      "Code optimization",
-      "SEO best practices",
-      "Core Web Vitals"
-    ]
-  },
-  {
-    "id": 12,
-    "name": "Cloud & DevOps",
-    "category": "Infrastructure",
-    "description": "Deploy and manage applications on cloud platforms. Master CI/CD pipelines, containerization, and scalable infrastructure.",
-    "icon": "fas fa-cloud",
-    "duration": "10 Weeks",
-    "level": "Advanced",
-    "highlights": [
-      "Cloud platform deployment",
-      "Docker & containerization",
-      "CI/CD pipelines",
-      "Infrastructure automation"
+      "One-on-one project guidance",
+      "Code review & feedback",
+      "Best practices & optimization",
+      "Career mentorship included"
     ]
   }
 ]
