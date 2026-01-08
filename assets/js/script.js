@@ -236,6 +236,8 @@ srtop.reveal('.about .content p', { delay: 200 });
 srtop.reveal('.about .content .box-container', { delay: 200 });
 srtop.reveal('.about .content .resumebtn', { delay: 200 });
 
+/* SCROLL FEATURED SERVICES */
+srtop.reveal('.featured-services .box', { interval: 200 });
 
 /* SCROLL SKILLS */
 srtop.reveal('.skills .container', { interval: 200 });
