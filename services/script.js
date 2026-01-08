@@ -69,35 +69,43 @@ function displayServices(services) {
   let html = '';
 
   services.forEach(service => {
-    const featuresHtml = service.features.map(feature => `<li>${feature}</li>`).join('');
+    const highlightsHtml = service.highlights.map(highlight => `<li>${highlight}</li>`).join('');
 
     html += `
       <div class="service-card">
-        <div class="service-card-icon">
-          <i class="${service.icon}"></i>
+        <div class="service-card-header">
+          <i class="${service.icon} service-card-icon"></i>
+          <div>
+            <div class="service-card-title">${service.name}</div>
+            <div class="service-card-category">${service.category}</div>
+          </div>
         </div>
         <div class="service-card-content">
-          <h3>${service.name}</h3>
-          <p class="service-card-category">${service.category}</p>
           <p class="service-card-description">${service.description}</p>
           
-          <div class="service-card-features">
-            <h4>Includes:</h4>
-            <ul>
-              ${featuresHtml}
+          <div class="service-info-grid">
+            <div class="info-item">
+              <span class="info-label">Duration</span>
+              <span class="info-value">${service.duration}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Level</span>
+              <span class="info-value">${service.level}</span>
+            </div>
+          </div>
+
+          <div class="service-highlights">
+            <h4 class="highlights-label">What You'll Learn:</h4>
+            <ul class="highlights-list">
+              ${highlightsHtml}
             </ul>
           </div>
         </div>
-        <button class="service-card-btn" onclick="contactForService('${service.name}')">Get Started</button>
       </div>
     `;
   });
 
   container.innerHTML = html;
-}
-
-function contactForService(serviceName) {
-  window.location.href = `/#contact`;
 }
 
 // Disable developer mode
