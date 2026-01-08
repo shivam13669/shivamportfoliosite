@@ -1,21 +1,6 @@
 [
   {
     "id": 1,
-    "name": "One on one Personalized Mentorship",
-    "category": "Personalized Learning",
-    "description": "Customized one-on-one mentoring tailored to your learning pace. Get direct guidance on any topic with flexible scheduling and focused problem-solving.",
-    "icon": "fas fa-user-graduate",
-    "duration": "Flexible",
-    "level": "All Levels",
-    "highlights": [
-      "Personalized learning path",
-      "Direct mentor access",
-      "Flexible scheduling",
-      "Progress tracking & feedback"
-    ]
-  },
-  {
-    "id": 2,
     "name": "Full Stack Development Training",
     "category": "Technical Training",
     "description": "Master complete web development from frontend to backend. Learn modern frameworks, databases, and deployment with real-world projects.",
@@ -27,6 +12,21 @@
       "React & modern frameworks",
       "Node.js & Express",
       "Database design & integration"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "One on one Personalized Mentorship",
+    "category": "Personalized Learning",
+    "description": "Customized one-on-one mentoring tailored to your learning pace. Get direct guidance on any topic with flexible scheduling and focused problem-solving.",
+    "icon": "fas fa-user-graduate",
+    "duration": "Flexible",
+    "level": "All Levels",
+    "highlights": [
+      "Personalized learning path",
+      "Direct mentor access",
+      "Flexible scheduling",
+      "Progress tracking & feedback"
     ]
   },
   {
