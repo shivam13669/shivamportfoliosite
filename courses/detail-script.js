@@ -147,13 +147,9 @@ function toggleCurriculum(element) {
   }
 }
 
-// Store current course and payment context
-let currentCourseForPayment = null;
-let currentPaymentGateway = null;
-
 function handleBuyNow(course) {
-  currentCourseForPayment = course;
-  openPaymentModal();
+  // Navigate to checkout page with course ID
+  window.location.href = `/checkout?id=${course.id}`;
 }
 
 function openPaymentModal() {
