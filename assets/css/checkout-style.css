@@ -24,6 +24,7 @@
   height: fit-content;
   position: sticky;
   top: 7.5rem;
+  order: 2;
 }
 
 .checkout-summary h2 {
