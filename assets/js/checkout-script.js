@@ -2,6 +2,7 @@ $(document).ready(function () {
   loadCheckoutData();
   setupFormHandlers();
   setupPaymentMethodSelection();
+  setupCustomValidation();
 });
 
 function getCourseIdFromUrl() {
