@@ -76,8 +76,18 @@ function setupFormHandlers() {
     emailInput.addEventListener('input', validateEmailField);
 
     phoneInput.addEventListener('blur', validatePhoneField);
-    phoneInput.addEventListener('input', validatePhoneField);
+    phoneInput.addEventListener('input', handlePhoneInput);
   }
+}
+
+function handlePhoneInput(e) {
+  const phoneInput = document.getElementById('customerPhone');
+  // Remove any non-numeric characters
+  let value = phoneInput.value.replace(/[^\d]/g, '');
+  // Limit to 10 digits
+  value = value.slice(0, 10);
+  phoneInput.value = value;
+  validatePhoneField();
 }
 
 function setupPaymentMethodSelection() {
