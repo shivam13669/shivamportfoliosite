@@ -475,9 +475,13 @@ hr {
     min-height: 80px;
   }
 
-  .method img {
-    max-width: 110px;
-    max-height: 30px;
+  .payment-badge {
+    width: 70px;
+    height: 70px;
+  }
+
+  .badge-icon {
+    font-size: 28px;
   }
 
   .course-summary img {
