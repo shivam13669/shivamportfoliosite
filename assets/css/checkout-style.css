@@ -132,6 +132,10 @@ body {
   filter: grayscale(0%);
 }
 
+.method[data-pay="cashfree"] img {
+  transform: scale(1.15);
+}
+
 .method:hover {
   border-color: #d1d5db;
   background: #fff;
