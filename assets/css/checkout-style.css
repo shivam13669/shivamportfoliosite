@@ -118,8 +118,6 @@ body {
   height: 100%;
   object-fit: contain;
   filter: grayscale(0%);
-  max-width: 85%;
-  max-height: 85%;
 }
 
 .method:hover {
