@@ -1,296 +1,298 @@
-import axios from 'axios';
+import express from 'express';
 import { logger } from '../utils/logger.js';
+import { validators } from '../utils/validators.js';
+import * as razorpay from '../gateways/razorpay.js';
+import * as phonepe from '../gateways/phonepe.js';
+import * as cashfree from '../gateways/cashfree.js';
+
+const router = express.Router();
 
 /**
- * PhonePe OAuth Client API Implementation
- * Uses Client Credentials grant type with form-body authentication
+ * POST /api/payment/create-order
+ * Create a payment order with the specified gateway
+ * 
+ * Request body:
+ * {
+ *   "amount": 499,
+ *   "gateway": "razorpay" | "phonepe" | "cashfree",
+ *   "customer": {
+ *     "name": "John Doe",
+ *     "email": "john@example.com",
+ *     "phone": "9876543210"
+ *   },
+ *   "description": "Full Stack Development Course"
+ * }
+ * 
+ * Response: Gateway-specific order data
  */
-
-// Configuration - OAuth Credentials Only
-const PHONEPE_CLIENT_ID = process.env.PHONEPE_CLIENT_ID;
-const PHONEPE_CLIENT_SECRET = process.env.PHONEPE_CLIENT_SECRET;
-const PHONEPE_CLIENT_VERSION = process.env.PHONEPE_CLIENT_VERSION || '1';
-
-// OAuth Token Cache
-let tokenCache = {
-  accessToken: null,
-  expiresAt: null,
-};
-
-/**
- * Get valid OAuth access token
- * Uses identity-manager endpoint with form-body (not Basic Auth)
- * Caches token in memory and refreshes only when expired
- * @returns {Promise<string>} Valid access token
- */
-const getAccessToken = async () => {
+router.post('/create-order', async (req, res) => {
   try {
-    // Check if cached token is still valid
-    if (tokenCache.accessToken && tokenCache.expiresAt > Date.now()) {
-      logger.debug('Using cached PhonePe access token');
-      return tokenCache.accessToken;
+    const { amount, gateway, customer, description } = req.body;
+
+    // Validate input
+    const amountValidation = validators.validateAmount(amount);
+    if (!amountValidation.valid) {
+      return res.status(400).json({ error: amountValidation.error });
     }
 
-    logger.info('Generating new PhonePe OAuth access token');
-
-    // Validate credentials exist
-    if (!PHONEPE_CLIENT_ID || !PHONEPE_CLIENT_SECRET) {
-      throw new Error(
-        'PhonePe credentials not configured. Set PHONEPE_CLIENT_ID and PHONEPE_CLIENT_SECRET in .env'
-      );
+    const gatewayValidation = validators.validateGateway(gateway);
+    if (!gatewayValidation.valid) {
+      return res.status(400).json({ error: gatewayValidation.error });
     }
 
-    // Request new token using form-body (not Basic Auth)
-    const response = await axios.post(
-      'https://api.phonepe.com/apis/identity-manager/v1/oauth/token',
-      new URLSearchParams({
-        client_id: PHONEPE_CLIENT_ID,
-        client_secret: PHONEPE_CLIENT_SECRET,
-        client_version: PHONEPE_CLIENT_VERSION,
-        grant_type: 'client_credentials',
-      }).toString(),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
-    );
-
-    const { access_token, expires_in } = response.data;
-
-    if (!access_token) {
-      throw new Error('No access token in response');
+    const customerValidation = validators.validateCustomer(customer);
+    if (!customerValidation.valid) {
+      return res.status(400).json({ error: customerValidation.error });
     }
 
-    // Cache token with expiry (subtract 60 seconds for safety margin)
-    const expiryTime = (expires_in - 60) * 1000;
-    tokenCache = {
-      accessToken: access_token,
-      expiresAt: Date.now() + expiryTime,
-    };
+    logger.info('Creating payment order', { gateway, amount, customer: customer.email });
 
-    logger.info('PhonePe OAuth token generated successfully', {
-      expiresIn: expires_in,
+    let order;
+
+    switch (gateway.toLowerCase()) {
+      case 'razorpay':
+        order = await razorpay.createRazorpayOrder({
+          amount,
+          currency: 'INR',
+          customer,
+          description,
+        });
+        break;
+
+      case 'phonepe':
+        order = await phonepe.createPhonePeOrder({
+          amount,
+          currency: 'INR',
+          customer,
+          orderId: `order_${Date.now()}`,
+        });
+        break;
+
+      case 'cashfree':
+        order = await cashfree.createCashfreeOrder({
+          amount,
+          currency: 'INR',
+          customer,
+          orderId: `order_${Date.now()}`,
+        });
+        break;
+
+      default:
+        return res.status(400).json({ error: 'Unsupported gateway' });
+    }
+
+    logger.info('Order created successfully', { gateway, orderId: order.orderId || order.transactionId });
+
+    res.status(200).json({
+      success: true,
+      gateway,
+      order,
     });
-
-    return access_token;
   } catch (error) {
-    logger.error('Failed to generate PhonePe OAuth token', {
-      error: error.message,
-      response: error.response?.data,
+    logger.error('Error creating order', { error: error.message });
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to create order',
+      ...(process.env.NODE_ENV === 'development' && { details: error }),
     });
-    throw {
-      message: 'Failed to authenticate with PhonePe',
-      error: error.message,
-    };
   }
-};
+});
 
 /**
- * Create PhonePe order using OAuth Client API
- * Minimal payload as per PhonePe OAuth spec
- * @param {object} params - { amount, customer, orderId }
- * @returns {Promise<object>} PhonePe response with redirect URL
+ * POST /api/payment/verify-payment
+ * Verify payment authenticity using gateway signature
+ * 
+ * Request body (varies by gateway):
+ * 
+ * Razorpay:
+ * {
+ *   "gateway": "razorpay",
+ *   "orderId": "order_xyz",
+ *   "paymentId": "pay_xyz",
+ *   "signature": "signature_xyz"
+ * }
+ * 
+ * PhonePe:
+ * {
+ *   "gateway": "phonepe",
+ *   "transactionId": "TXN_xyz",
+ *   "amount": 500
+ * }
+ * 
+ * Cashfree:
+ * {
+ *   "gateway": "cashfree",
+ *   "orderId": "order_xyz",
+ *   "paymentId": "pay_xyz"
+ * }
  */
-export const createPhonePeOrder = async (params) => {
+router.post('/verify-payment', async (req, res) => {
   try {
-    const { amount, orderId, customer } = params;
+    const { gateway, orderId, paymentId, signature, transactionId, amount } = req.body;
 
-    const accessToken = await getAccessToken();
+    // Validate gateway
+    const gatewayValidation = validators.validateGateway(gateway);
+    if (!gatewayValidation.valid) {
+      return res.status(400).json({ error: gatewayValidation.error });
+    }
 
-    const payload = {
-      merchantId: process.env.PHONEPE_MERCHANT_ID,
-      merchantTransactionId: orderId,
-      amount: Math.round(amount * 100),
-      redirectUrl: `${process.env.FRONTEND_URL}/payment-success`,
-      redirectMode: "POST",
-      callbackUrl: `${process.env.BACKEND_URL}/api/webhook/phonepe`,
-      mobileNumber: customer.phone,
-      paymentInstrument: {
-        type: "PAY_PAGE"
-      }
-    };
+    logger.info('Verifying payment', { gateway, orderId: orderId || transactionId });
 
-    const response = await axios.post(
-      "https://api.phonepe.com/apis/hermes/pg/v1/initiate",
-      payload,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-          "X-Client-Version": PHONEPE_CLIENT_VERSION
+    let verificationResult;
+
+    switch (gateway.toLowerCase()) {
+      case 'razorpay':
+        if (!orderId || !paymentId || !signature) {
+          return res.status(400).json({
+            error: 'Missing required fields: orderId, paymentId, signature',
+          });
         }
-      }
-    );
 
-    return response.data;
-  } catch (err) {
-    console.log(err.response?.data || err.message);
-    throw new Error("PhonePe failed");
-  }
-};
+        const isValid = await razorpay.verifyRazorpaySignature({
+          orderId,
+          paymentId,
+          signature,
+        });
 
+        if (!isValid) {
+          return res.status(400).json({
+            success: false,
+            error: 'Payment signature verification failed',
+          });
+        }
 
-/**
- * Check PhonePe transaction status using OAuth
- * Simplified to accept only orderId
- * @param {string} orderId - Merchant's order ID
- * @returns {Promise<object>} PhonePe transaction status
- */
-export const checkPhonePeTransactionStatus = async (orderId) => {
-  try {
-    logger.info('Checking PhonePe transaction status', { orderId });
+        // Optionally fetch payment details from Razorpay
+        const paymentDetails = await razorpay.getRazorpayPaymentDetails(paymentId);
 
-    // Get valid access token
-    const accessToken = await getAccessToken();
+        verificationResult = {
+          success: true,
+          gateway: 'razorpay',
+          orderId,
+          paymentId,
+          status: paymentDetails.status,
+          amount: paymentDetails.amount / 100, // Convert from paise to rupees
+          method: paymentDetails.method,
+          timestamp: new Date(paymentDetails.created_at * 1000).toISOString(),
+        };
+        break;
 
-    // Make API request with Bearer token
-    const response = await axios.get(
-      `https://api.phonepe.com/apis/hermes/pg/v1/status/${orderId}`,
-      {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'X-Client-Version': PHONEPE_CLIENT_VERSION,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+      case 'phonepe':
+        if (!orderId) {
+          return res.status(400).json({
+            error: 'Missing required field: orderId',
+          });
+        }
 
-    logger.info('PhonePe transaction status retrieved', {
-      orderId,
-      success: response.data?.success,
-    });
+        const phonepeStatus = await phonepe.checkPhonePeTransactionStatus(orderId);
 
-    // Return PhonePe response directly
-    return response.data;
-  } catch (error) {
-    logger.error('PhonePe transaction status check failed', {
-      orderId,
-      error: error.message,
-      response: error.response?.data,
-    });
-    throw {
-      message: 'Failed to check PhonePe transaction status',
-      error: error.message,
-    };
-  }
-};
+        if (!phonepeStatus.success) {
+          return res.status(400).json({
+            success: false,
+            error: 'Payment verification failed',
+            status: phonepeStatus.data?.state,
+          });
+        }
 
-/**
- * Refund PhonePe payment using OAuth
- * @param {object} params - { transactionId, amount }
- * @returns {Promise<object>} Refund response
- */
-export const refundPhonePePayment = async (params) => {
-  try {
-    const { transactionId, amount } = params;
+        verificationResult = {
+          success: true,
+          gateway: 'phonepe',
+          orderId,
+          status: phonepeStatus.data?.state,
+          amount: phonepeStatus.data?.amount,
+          responseCode: phonepeStatus.data?.responseCode,
+        };
+        break;
 
-    logger.info('Initiating PhonePe refund', { transactionId, amount });
+      case 'cashfree':
+        if (!orderId || !paymentId) {
+          return res.status(400).json({
+            error: 'Missing required fields: orderId, paymentId',
+          });
+        }
 
-    // Get valid access token
-    const accessToken = await getAccessToken();
+        const cashfreeDetails = await cashfree.getCashfreePaymentDetails(
+          orderId,
+          paymentId
+        );
 
-    // Amount in paise
-    const amountInPaise = Math.round(amount * 100);
+        if (cashfreeDetails.status !== 'SUCCESS') {
+          return res.status(400).json({
+            success: false,
+            error: 'Payment verification failed',
+            status: cashfreeDetails.status,
+          });
+        }
 
-    // Create unique refund ID
-    const refundId = `REFUND_${Date.now()}`;
+        verificationResult = {
+          success: true,
+          gateway: 'cashfree',
+          orderId,
+          paymentId: cashfreeDetails.paymentId,
+          status: cashfreeDetails.status,
+          amount: cashfreeDetails.amount,
+          method: cashfreeDetails.method,
+          timestamp: cashfreeDetails.timestamp,
+        };
+        break;
 
-    // Prepare refund request
-    const payload = {
-      transactionId: transactionId,
-      amount: amountInPaise,
-      refundId: refundId,
-    };
-
-    // Make API request with Bearer token
-    const response = await axios.post(
-      'https://api.phonepe.com/apis/hermes/pg/v1/refund',
-      payload,
-      {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'X-Client-Version': PHONEPE_CLIENT_VERSION,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-
-    logger.info('PhonePe refund initiated', {
-      transactionId,
-      refundId,
-      success: response.data?.success,
-    });
-
-    // Return PhonePe response directly
-    return response.data;
-  } catch (error) {
-    logger.error('PhonePe refund failed', {
-      error: error.message,
-      response: error.response?.data,
-    });
-    throw {
-      message: 'Failed to refund PhonePe payment',
-      error: error.message,
-    };
-  }
-};
-
-/**
- * Handle PhonePe webhook
- * PhonePe OAuth webhooks send payment status events
- * No authorization validation needed - just process the payload
- * @param {object} webhookData - Webhook payload from PhonePe
- * @returns {Promise<object>} Webhook processing result
- */
-export const handlePhonePeWebhook = async (webhookData) => {
-  try {
-    logger.info('Processing PhonePe webhook', {
-      orderId: webhookData?.data?.merchantOrderId,
-    });
-
-    const { data, success } = webhookData || {};
-
-    if (!webhookData || !data) {
-      logger.warn('PhonePe webhook missing data field');
-      return { processed: false, message: 'Invalid webhook format' };
+      default:
+        return res.status(400).json({ error: 'Unsupported gateway' });
     }
 
-    logger.info('PhonePe webhook processed', {
-      orderId: data?.merchantOrderId,
-      status: data?.state,
-      success,
-    });
-
-    // Return webhook data for processing by application
-    return {
-      processed: true,
-      orderId: data?.merchantOrderId,
-      status: data?.state,
-      amount: data?.amount,
-      success: success,
-    };
+    logger.info('Payment verified successfully', verificationResult);
+    res.status(200).json(verificationResult);
   } catch (error) {
-    logger.error('PhonePe webhook processing error', { error: error.message });
-    throw error;
+    logger.error('Error verifying payment', { error: error.message });
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Payment verification failed',
+      ...(process.env.NODE_ENV === 'development' && { details: error }),
+    });
   }
-};
+});
 
 /**
- * Clear token cache (useful for testing or manual reset)
+ * GET /api/payment/status/:gateway/:id
+ * Get payment status by transaction/order ID
  */
-export const clearTokenCache = () => {
-  tokenCache = {
-    accessToken: null,
-    expiresAt: null,
-  };
-  logger.info('PhonePe token cache cleared');
-};
+router.get('/status/:gateway/:id', async (req, res) => {
+  try {
+    const { gateway, id } = req.params;
 
-export default {
-  createPhonePeOrder,
-  checkPhonePeTransactionStatus,
-  refundPhonePePayment,
-  handlePhonePeWebhook,
-  clearTokenCache,
-};
+    const gatewayValidation = validators.validateGateway(gateway);
+    if (!gatewayValidation.valid) {
+      return res.status(400).json({ error: gatewayValidation.error });
+    }
+
+    logger.info('Fetching payment status', { gateway, id });
+
+    let status;
+
+    switch (gateway.toLowerCase()) {
+      case 'phonepe':
+        status = await phonepe.checkPhonePeTransactionStatus(id);
+        break;
+
+      case 'cashfree':
+        status = await cashfree.getCashfreeOrderDetails(id);
+        break;
+
+      case 'razorpay':
+        status = await razorpay.getRazorpayPaymentDetails(id);
+        break;
+
+      default:
+        return res.status(400).json({ error: 'Unsupported gateway' });
+    }
+
+    res.status(200).json({ success: true, status });
+  } catch (error) {
+    logger.error('Error fetching payment status', { error: error.message });
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to fetch payment status',
+    });
+  }
+});
+
+export default router;
