@@ -50,7 +50,6 @@ export const createRazorpayOrder = async (params) => {
       currency: currency,
       receipt: `receipt_${Date.now()}`,
       description: description || 'Payment for courses',
-      customer_notify: 1,
       notes: {
         customer_email: customer.email,
         customer_phone: customer.phone,

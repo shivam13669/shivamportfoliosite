@@ -153,7 +153,8 @@ async function handleCheckoutSubmit() {
 
     // Get course price
     const priceText = window.currentCourseForPayment.price;
-    const amount = parseFloat(priceText.replace('₹', '').trim());
+    // Remove ₹ symbol AND commas (e.g., "₹2,999" -> "2999")
+    const amount = parseFloat(priceText.replace('₹', '').replace(/,/g, '').trim());
 
     console.log('Payment details:', {
       coursePrice: priceText,
